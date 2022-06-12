@@ -1,0 +1,40 @@
+#进阶版  获取特定网页特定信息
+
+from requests_html import HTMLSession
+#读入HTMLSession
+session = HTMLSession()
+#建立远程会会话
+url = 'https://www.jianshu.com/p/85f4624485b9'
+#远程地址
+r = session.get(url)
+#把远程url页面的所有内容回传回来
+
+#print(r.html.text)
+#只将文本打印出来
+r.html.links
+#获取网页中的链接
+r.html.absolute_links
+#获取网页中链接的绝对地址
+#sel ='#__next > div._21bLU4._3kbg6I > div > div._gp-ck > section:nth-child(1) > article > p:nth-child(4) > a'
+sel ='#__next > div._21bLU4._3kbg6I > div > div._gp-ck > section:nth-child(1) > article > p:nth-child(6) > a'
+#获取特定网页下的具体地址
+results = r.html.find(sel)
+#获取特定网页下的具体地址内容
+#print (results[0].text)
+#打印特定网页下的具体地址内容
+url1=list(results[0].absolute_links)[0]
+#获取特定网页下特定内容的绝对地址
+#print(url1)
+
+def get_text_link_from_sel(sel):
+	mylist = []
+	try:
+		results = r.html.find(sel)
+		for result in results:
+			mytext = result.text
+			mylink = list(result.absolute_links)[0]
+			mylist.append((mytext,mylink))
+		return mylist
+	except:
+		return None
+print(get_text_link_from_sel(sel))
