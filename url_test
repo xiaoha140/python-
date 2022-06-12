@@ -1,0 +1,17 @@
+#pthon3.x  抓取网页
+import requests
+import urllib
+#抓取百度首页内容(源代码)
+#url = "http://www.baidu.com"   #目标网址  'https://baidu.com'
+#content=urllib.request.urlopen(URL).read()#使用urllib模块获取网页内容
+#print (content)#输出网页内容 源代码
+
+#抓取百度首页内容
+def gethtml(url):
+    page = urllib.request.urlopen(url)
+    html = page.read()
+    return html
+
+html = gethtml("http://www.baidu.com")
+
+print(html)
